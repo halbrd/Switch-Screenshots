@@ -24,18 +24,12 @@ def list_images(dir):
 game_ids = json.loads(requests.get('https://raw.githubusercontent.com/RenanGreca/Switch-Screenshots/master/game_ids.json').text)
 
 # Iterate over images
-for image in list_images('Album'):
-    image_id = image.split('-')[1].split('.')[0]
+for image_location in list_images('.'):
+    new_image_name = os.path.basename(image_location)
+    game_id = image_location.split('-')[1].split('.')[0]
 
-    if not os.path.exists('Output'):
-        os.makedirs('Output')
+    if game_id in game_ids:
+        game_name = game_ids[game_id]
+        new_image_name = new_image_name.replace(game_id, game_name)
 
-    # If the ID was in the JSON file, create a directory and copy the file
-    if image_id in game_ids:
-        game_title = game_ids[image_id]
-        path = os.path.join('Output', game_title)
-        if not os.path.exists(path):
-            os.makedirs(path)
-        copy2(image, path)
-    else:
-        print("Game ID not found for image", image)
+    copy2(image_location, new_image_name)
