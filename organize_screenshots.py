@@ -13,7 +13,7 @@ def list_images(dir):
     r = []
     for root, dirs, files in os.walk(dir):
         for name in files:
-            if "jpg" in name or "mp4" in name or "png" in name:
+            if name.endswith('jpg') or name.endswith('mp4') or name.endswith('png'):
                 r.append(os.path.join(root, name))
     return r
 
