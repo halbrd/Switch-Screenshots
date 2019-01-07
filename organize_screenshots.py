@@ -7,6 +7,7 @@
 import os
 import json
 from shutil import copy2
+import requests
 
 # Create a list of all the image files in the Album directory.
 # Thanks to L. Teder
@@ -20,8 +21,7 @@ def list_images(dir):
     return r
 
 # Load game IDs file
-with open('game_ids.json') as data_file:
-    game_ids = json.load(data_file)
+game_ids = json.loads(requests.get('https://raw.githubusercontent.com/RenanGreca/Switch-Screenshots/master/game_ids.json').text)
 
 # Iterate over images
 for image in list_images('Album'):
