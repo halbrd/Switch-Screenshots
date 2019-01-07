@@ -3,6 +3,7 @@ import json
 from shutil import copy2
 import requests
 import argparse
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('path', nargs='?', default='.', help='path to operate on')
@@ -23,6 +24,8 @@ image_list = list_images(os.path.join(args.path, 'input'))
 
 for image_location in image_list:
     new_image_name = os.path.basename(image_location)
+    new_image_name = re.sub(r'^(\d\d\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)\d\d-', r'\1-\2-\3 \4.\5.\6 - ', new_image_name)
+
     game_id = image_location.split('-')[1].split('.')[0]
 
     if game_id in game_ids:
