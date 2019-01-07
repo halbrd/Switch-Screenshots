@@ -38,4 +38,4 @@ for image in list_images('Album'):
             os.makedirs(path)
         copy2(image, path)
     else:
-        print "Game ID not found for image", image
+        print("Game ID not found for image", image)
