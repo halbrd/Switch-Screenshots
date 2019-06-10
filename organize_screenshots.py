@@ -32,6 +32,9 @@ for image_location in image_list:
         game_name = game_ids[game_id]
         new_image_name = new_image_name.replace(game_id, game_name)
 
+    for char in '/\\?%*:|"<>':
+        new_image_name = new_image_name.replace(char, '-')
+
     new_location = os.path.join(args.path, new_image_name)
     if not os.path.exists(new_location):
         copy2(image_location, new_location)
